@@ -9,9 +9,31 @@ export class ConfigLoader {
   private envPath: string;
 
   constructor(projectRoot: string = process.cwd()) {
-    this.configPath = path.join(projectRoot, 'qa-agent.config.json');
+    this.configPath = this.findConfigFile(projectRoot);
     this.envPath = path.join(projectRoot, '.env');
     this.loadEnv();
+  }
+
+  /**
+   * Find config file by searching current and parent directories
+   */
+  private findConfigFile(startPath: string): string {
+    let currentPath = startPath;
+    const fileName = 'qa-agent.config.json';
+
+    while (true) {
+      const configPath = path.join(currentPath, fileName);
+      if (fs.existsSync(configPath)) {
+        return configPath;
+      }
+
+      const parentPath = path.dirname(currentPath);
+      if (parentPath === currentPath) {
+        // Reached root, return default path
+        return path.join(startPath, fileName);
+      }
+      currentPath = parentPath;
+    }
   }
 
   /**

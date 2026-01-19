@@ -18,6 +18,9 @@ export class ADOClient {
         Authorization: `Basic ${auth}`,
         'Content-Type': 'application/json',
       },
+      params: {
+        'api-version': '7.0',
+      },
     });
   }
 
@@ -30,12 +33,12 @@ export class ADOClient {
     maxResults: number = 50
   ): Promise<Task[]> {
     try {
+      // Use the assignedTo parameter directly instead of @me
       const wiql = `
         SELECT [System.Id], [System.Title], [System.Description], [System.State],
-               [System.AssignedTo], [System.IterationPath], [System.AreaPath],
-               [Custom.AcceptanceCriteria]
+               [System.AssignedTo], [System.IterationPath], [System.AreaPath]
         FROM workitems
-        WHERE [System.AssignedTo] = @me
+        WHERE [System.AssignedTo] = '${assignedTo}'
         AND [System.State] IN (${states.map((s) => `'${s}'`).join(',')})
         AND [System.TeamProject] = @project
         ORDER BY [System.CreatedDate] DESC
@@ -134,7 +137,10 @@ export class ADOClient {
    */
   public async testConnection(): Promise<boolean> {
     try {
-      await this.client.get('/projects');
+      // Try to fetch a simple work items query to verify connection
+      await this.client.post('/wit/wiql', {
+        query: `SELECT [System.Id] FROM workitems ORDER BY [System.CreatedDate] DESC`,
+      });
       return true;
     } catch (error) {
       console.error('Failed to connect to Azure DevOps:', error);

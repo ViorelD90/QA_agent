@@ -51,16 +51,16 @@ export class SyncCommand {
       }
       console.log('✅ Connected\n');
 
-      // Fetch tasks
+      // Fetch tasks - try multiple state names to support different Azure DevOps templates
       console.log('📥 Fetching assigned tasks...');
       const tasks = await this.taskFetcher.fetch({
         assignedTo: config.azure.assignedTo,
-        states: ['New', 'Active'],
+        states: ['New', 'Active', 'To Do', 'In Progress'],
         maxResults: 10,
       });
 
       if (tasks.length === 0) {
-        console.log('ℹ️  No tasks found in New or Active state.');
+        console.log('ℹ️  No tasks found in New, Active, To Do, or In Progress state.');
         return;
       }
 

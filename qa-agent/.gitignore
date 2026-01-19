@@ -22,6 +22,11 @@ qa-agent.config.json
 qa-agent.memory.json
 .cache/
 
+# Test/debug files
+test-*.ts
+check-*.ts
+*.test.js
+
 # IDE
 .vscode/
 .idea/
