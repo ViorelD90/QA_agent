@@ -1,0 +1,67 @@
+{
+  "azure": {
+    "organization": "your-organization",
+    "project": "your-project",
+    "patToken": "your-pat-token-here",
+    "assignedTo": "your.email@company.com"
+  },
+  "playwright": {
+    "headless": false,
+    "slowMo": 500,
+    "timeout": 30000,
+    "browserType": "chromium"
+  },
+  "applications": [
+    {
+      "name": "pega-app",
+      "baseUrl": "https://pega-dev.company.com",
+      "description": "Main Pega application",
+      "environment": "dev",
+      "loginFlow": {
+        "type": "forms",
+        "steps": [
+          {
+            "action": "fill_username",
+            "selector": "#username",
+            "value": "testuser"
+          },
+          {
+            "action": "fill_password",
+            "selector": "#password",
+            "value": "testpass"
+          },
+          {
+            "action": "click_login",
+            "selector": "button[type='submit']"
+          }
+        ]
+      },
+      "credentials": {
+        "usernameField": "username",
+        "passwordField": "password",
+        "loginButton": "button[type='submit']"
+      }
+    },
+    {
+      "name": "admin-portal",
+      "baseUrl": "https://admin-dev.company.com",
+      "description": "Admin management portal",
+      "environment": "dev",
+      "loginFlow": {
+        "type": "sso"
+      }
+    }
+  ],
+  "defaultApp": "pega-app",
+  "paths": {
+    "scenarios": "./scenarios",
+    "tests": "./tests",
+    "screenshots": "./screenshots"
+  },
+  "testGeneration": {
+    "stepNamingConvention": "Given/When/Then",
+    "selectorStrategy": "role",
+    "includeWaits": true,
+    "includeScreenshots": false
+  }
+}

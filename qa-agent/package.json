@@ -1,0 +1,44 @@
+{
+  "name": "qa-agent",
+  "version": "1.0.0",
+  "description": "Automated QA workflow agent for Playwright projects with Azure DevOps integration",
+  "main": "dist/cli/index.js",
+  "bin": {
+    "qa-agent": "dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/cli/index.ts",
+    "start": "node dist/cli/index.js",
+    "sync": "ts-node src/cli/index.ts sync",
+    "config": "ts-node src/cli/index.ts config",
+    "memory": "ts-node src/cli/index.ts memory",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "postinstall": "npm run build"
+  },
+  "keywords": [
+    "qa",
+    "automation",
+    "playwright",
+    "azure-devops",
+    "testing",
+    "cli"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "typescript": "^5.2.2",
+    "ts-node": "^10.9.1",
+    "rimraf": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build output
+dist/
+build/
+
+# Generated files
+scenarios/
+tests/
+screenshots/
+
+# Configuration (don't commit secrets)
+qa-agent.config.json
+.env
+.env.local
+.env.*.local
+
+# Memory and cache
+qa-agent.memory.json
+.cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Testing
+.nyc_output/
+coverage/
+*.coverage
+
+# Temporary
+tmp/
+temp/
+*.tmp
